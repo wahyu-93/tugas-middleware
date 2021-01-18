@@ -15,8 +15,9 @@ class CreateOtpsTable extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('otp_code');
-            $table->date('valid_date');
+            $table->uuid('user_id');
+            $table->integer('otp_code')->unique();
+            $table->dateTime('valid_date');
             $table->timestamps();
         });
     }

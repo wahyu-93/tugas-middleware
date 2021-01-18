@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Roles;
+use App\Role;
 
 class Roleseeder extends Seeder
 {
@@ -12,11 +12,11 @@ class Roleseeder extends Seeder
      */
     public function run()
     {
-        Roles::create([
+        Role::create([
             'role' => '0',
         ]);
 
-        Roles::create([
+        Role::create([
             'role' => '1',
         ]);
     }

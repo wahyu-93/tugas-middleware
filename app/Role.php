@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class roles extends Model
+class Role extends Model
 {
     protected $fillable = ['role'];
-    
+
     public function getIncrementing()
     {
         return false;
@@ -27,6 +27,4 @@ class roles extends Model
             }
         });
     }  
-
-
 }
