@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Login;
 
+use App\Event\EventRegisterUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -17,6 +18,8 @@ class LoginController extends Controller
             'email' => ['required', 'email', 'unique:users,email']
         ]);
 
+        $data = [];
+
         $users = User::create([
             'name'  => request('name'),
             'email' => request('email'),
@@ -25,16 +28,21 @@ class LoginController extends Controller
             
         $now = Carbon::now();
 
-        Otp::create([
+        $otps = Otp::create([
             'otp_code'  => mt_rand(1000000, 9999999),
             'valid_date'=> $now->addMinutes(5),
             'user_id'   => $users->id
         ]);
 
+        $users->setAttribute('otp', $otps->otp_code);
+        $data['user'] = $users;
+
+        event(new EventRegisterUser($users));
+        
         return response()->json([
                 'response_code' => '00',
                 'response_message' => 'Silahkan Cek Email',
-                'data'  => $users
+                'data'  => $data
             ]);
     } 
 
@@ -92,6 +100,9 @@ class LoginController extends Controller
         $otps->valid_date = Carbon::now()->addMinutes(5);
         $otps->save();     
         
+        $user->setAttribute('otp', $otps->otp_code);
+        event(new EventRegisterUser($user));
+
         return response()->json([
             'response_code' => '00',
             'response_message'  => 'Berhasil Generate Ulang OTP',
