@@ -8,6 +8,6 @@
 </head>
 <body>
     <p>Selamat Bapak / Ibu <b>{{ $nama }}</b> Sudah Berhasil Register</p>
-    <p>Berikut ini adalah Kode OTP Anda : {{ $otp }}</p>
+    <p>Berikut ini adalah Kode OTP Anda : <b>{{ $otp }} </b>, Kode OTP Hanya Berlaku Selama 5 Menit</p>
 </body>
 </html>

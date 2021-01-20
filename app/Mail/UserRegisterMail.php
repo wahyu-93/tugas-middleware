@@ -35,7 +35,7 @@ class UserRegisterMail extends Mailable
                     ->view('mail.user_register_mail')
                     ->with([
                         'nama'  => $this->user->name,
-                        'otp'   => $this->user->otp,
+                        'otp'   => $this->user->otp->otp_code,
                     ]);
     }
 }

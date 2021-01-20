@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Str;
+use App\Otp;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -71,5 +72,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function Otp()
+    {
+        return $this->hasOne(Otp::class);
     }
 }
